@@ -6,6 +6,13 @@ os:
 
 compiler:
   - gcc
+  - clang
+
+matrix:
+  exclude:
+    # Don't compile with gcc on MacOS
+    - os: osx
+      compiler: gcc
 
 addons:
   apt:
@@ -22,7 +29,13 @@ addons:
     - libxinerama-dev
     - libtiff4-dev
     - tree
+  homebrew:
+    packages:
+    - fltk
+    - jpeg
+    - libpng
+    - libtiff
 
 script:
-  - ./build-moos.sh -j 2
-  - ./build-ivp.sh -j 2
+  - ./build-moos.sh
+  - ./build-ivp.sh
