@@ -1,17 +1,20 @@
-FROM debian:9
+FROM centos:7
 MAINTAINER Christopher Gagner <Christopher.Gagner@gmail.com>
 
 # Setup the base Ubuntu container
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libjpeg-dev \
-    libtiff-dev \
-    libpng-dev \
-    libfltk1.3-dev \
-    fluid \
+RUN yum update -y && yum install -y \
+    libjpeg-turbo-devel \
+    libtiff-devel \
+    libpng-devel \
+    mesa-libGLU-devel \
+    fltk-devel \
+    fltk-fluid \
     cmake \
+    make \
+    gcc-c++ \
     git \
-  && rm -rf /var/lib/apt/lists/*
+  && yum clean all \
+  && rm -rf /var/cache/yum
 
 RUN \
   cd /opt && \

@@ -3,14 +3,15 @@ MAINTAINER Christopher Gagner <Christopher.Gagner@gmail.com>
 
 # Setup the base Ubuntu container
 RUN apt-get update && apt-get install -y \
-  build-essential \
-  libjpeg-dev \
-  libtiff-dev \
-  libpng-dev \
-  libfltk1.3-dev \
-  fluid \
-  cmake \
-  git
+    build-essential \
+    libjpeg-dev \
+    libtiff-dev \
+    libpng-dev \
+    libfltk1.3-dev \
+    fluid \
+    cmake \
+    git \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN \
   cd /opt && \
