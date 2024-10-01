@@ -27,15 +27,17 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install -y cmake build-essential git libtiff5-dev libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxinerama-dev libxft-dev
 
+    - name: Install Homebrew
+    if: matrix.os-type == 'darwin'
+      run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        
     - name: Install Dependencies - Mac OS X
       if: matrix.os-type == 'darwin'
       run: |
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         echo >> /home/runner/.bashrc
-         echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
-         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-         sudo apt update -y
-         sudo apt install -y fltk
+         brew update
          brew install fltk libtiff autoconf automake
          
     
