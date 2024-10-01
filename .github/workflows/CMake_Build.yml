@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-24.04
             os-type: debian
-          - os: macos-12
+          - os: macos-14
             os-type: darwin
     runs-on: ubuntu-latest
 
