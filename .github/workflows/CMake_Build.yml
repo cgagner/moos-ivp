@@ -15,8 +15,8 @@ jobs:
         include:
           - os: ubuntu-24.04
             os-type: debian
-         # - os: macos-14
-         #   os-type: darwin
+          - os: macos-14
+            os-type: darwin
     runs-on: ubuntu-latest
 
     steps:
@@ -27,26 +27,23 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install -y cmake build-essential git libtiff5-dev libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxinerama-dev libxft-dev
 
-    - name: Install Homebrew
-      if: matrix.os-type == 'darwin'
-      run: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $GITHUB_ENV
-      shell: bash
-        
     - name: Install Dependencies - Mac OS X
       if: matrix.os-type == 'darwin'
       run: |
-         eval "$(/opt/homebrew/bin/brew shellenv)"
-         brew update
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         echo >> /home/runner/.bashrc
+         echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
+         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
          brew install fltk libtiff autoconf automake
-         
+      shell: bash
     
     - name: Build
       # Build your program with the given configuration
       run: ./build.sh
+      shell: bash
 
     - name: Check build
       run: ./build-check.sh
+      shell: bash
       
 
