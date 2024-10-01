@@ -29,4 +29,7 @@ jobs:
       # Build your program with the given configuration
       run: ./build.sh
 
+    - name: Check build
+      run: ./build-check.sh
+      
 
