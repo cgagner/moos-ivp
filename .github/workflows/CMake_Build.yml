@@ -19,6 +19,8 @@ jobs:
           # Mac OS X - 13 runs on intel
           - os: macos-13
             os-type: darwin
+          - os: windows-latest
+            os-type: windows
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -35,7 +37,14 @@ jobs:
          brew install fltk libtiff autoconf automake
          brew list fltk
       shell: bash
-    
+
+    - name: Install Dependencies - Windows
+      if: matrix.os-type == 'windows'
+      run: |
+        echo %PATH%
+      shell: bash
+
+
     - name: Build
       # Build your program with the given configuration
       run: ./build.sh
