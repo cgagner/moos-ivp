@@ -34,7 +34,10 @@ jobs:
          echo >> /home/runner/.bashrc
          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-         sudo brew install fltk libtiff autoconf automake
+         sudo apt update -y
+         sudo apt install -y fltk
+         brew install fltk libtiff autoconf automake
+         
     
     - name: Build
       # Build your program with the given configuration
