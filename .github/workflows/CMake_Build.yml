@@ -28,7 +28,7 @@ jobs:
         sudo apt-get install -y cmake build-essential git libtiff5-dev libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxinerama-dev libxft-dev
 
     - name: Install Homebrew
-    if: matrix.os-type == 'darwin'
+      if: matrix.os-type == 'darwin'
       run: |
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
