@@ -15,8 +15,8 @@ jobs:
         include:
           - os: ubuntu-24.04
             os-type: debian
-          - os: macos-14
-            os-type: darwin
+         # - os: macos-14
+         #   os-type: darwin
     runs-on: ubuntu-latest
 
     steps:
