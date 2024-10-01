@@ -12,12 +12,14 @@ jobs:
   build:
     strategy:
       matrix:
+        # https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
         include:
           - os: ubuntu-24.04
             os-type: debian
-          - os: macos-14
+          # Mac OS X - 13 runs on intel
+          - os: macos-13
             os-type: darwin
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -30,23 +32,14 @@ jobs:
     - name: Install Dependencies - Mac OS X
       if: matrix.os-type == 'darwin'
       run: |
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         echo >> /home/runner/.bashrc
-         echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
-         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
          brew install fltk libtiff autoconf automake
          brew list fltk
-         ls /usr/local/include
-         ls /opt/*
       shell: bash
     
     - name: Build
       # Build your program with the given configuration
       run: ./build.sh
-      shell: bash
 
     - name: Check build
       run: ./build-check.sh
-      shell: bash
       
-
