@@ -30,9 +30,11 @@ jobs:
     - name: Install Dependencies - Mac OS X
       if: matrix.os-type == 'darwin'
       run: |
-         sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         ls /usr/local/bin
-         sudo brew install fltk libtiff autoconf automake
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         echo >> /home/runner/.bashrc
+         echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
+         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+         brew install fltk libtiff autoconf automake
     
     - name: Build
       # Build your program with the given configuration
