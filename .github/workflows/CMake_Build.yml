@@ -41,8 +41,16 @@ jobs:
       if: matrix.os-type == 'windows'
       run: |
          echo "PATH: ${PATH}"
+         echo "${CONDA}\bin" >> $env:GITHUB_PATH
       shell: bash
 
+    - name: Install Dependencies - Windows
+      if: matrix.os-type == 'windows'
+      run: |
+         echo "PATH: ${PATH}"
+         conda install conda-forge::fltk
+      shell: bash
+    
     - name: Build
       run: ./build.sh
 
