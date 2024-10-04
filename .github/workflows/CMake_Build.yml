@@ -48,7 +48,7 @@ jobs:
       if: matrix.os-type == 'windows'
       run: |
          echo "PATH: ${PATH}"
-         ${CONDA}\\bin\\conda install conda-forge::fltk
+         ls ${CONDA}
       shell: bash
     
     - name: Build
