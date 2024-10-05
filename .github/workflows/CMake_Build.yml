@@ -38,27 +38,20 @@ jobs:
       shell: bash
 
     - name: Install Dependencies - Windows
-      if: matrix.os-type == 'windows'
-      run: |
-         echo "PATH: ${PATH}"
-         echo "${CONDA}\bin" >> $env:GITHUB_PATH
-      shell: bash
-
-    - uses: conda-incubator/setup-miniconda@v3
+      uses: conda-incubator/setup-miniconda@v3
       if: matrix.os-type == 'windows'
       with:
-        activate-environment: anaconda-client-env
-        environment-file: etc/example-environment.yml
+        activate-environment: anaconda-moos-env
+        environment-file: .github/conda/moos-env.yml
         python-version: 3.5
-        condarc-file: etc/example-condarc.yml
+        condarc-file: .github/conda/condarc.yml
         auto-activate-base: false
     
-    - name: Install Dependencies - Windows
+    - name: Verify Dependencies - Windows
       if: matrix.os-type == 'windows'
       run: |
           conda info
           conda list
-          conda install conda-forge::fltk
     
     - name: Build
       run: ./build.sh

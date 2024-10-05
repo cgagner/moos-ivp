@@ -1,0 +1,9 @@
+name: anaconda-moos-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - fltk
+  - libtiff
+  - autoconf
+  - automake
