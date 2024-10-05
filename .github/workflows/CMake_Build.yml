@@ -47,7 +47,6 @@ jobs:
     - name: Install Dependencies - Windows
       if: matrix.os-type == 'windows'
       run: |
-         echo "PATH: ${PATH}"
          ${CONDA}\\_conda.exe create
          ${CONDA}\\_conda.exe activate
          ${CONDA}\\_conda.exe install conda-forge::fltk
