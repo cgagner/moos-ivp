@@ -44,13 +44,21 @@ jobs:
          echo "${CONDA}\bin" >> $env:GITHUB_PATH
       shell: bash
 
+    - uses: conda-incubator/setup-miniconda@v3
+      if: matrix.os-type == 'windows'
+      with:
+        activate-environment: anaconda-client-env
+        environment-file: etc/example-environment.yml
+        python-version: 3.5
+        condarc-file: etc/example-condarc.yml
+        auto-activate-base: false
+    
     - name: Install Dependencies - Windows
       if: matrix.os-type == 'windows'
       run: |
-         ${CONDA}\\_conda.exe create
-         ${CONDA}\\_conda.exe activate
-         ${CONDA}\\_conda.exe install conda-forge::fltk
-      shell: bash
+          conda info
+          conda list
+          conda install conda-forge::fltk
     
     - name: Build
       run: ./build.sh
