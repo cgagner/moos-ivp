@@ -5,5 +5,4 @@ channels:
 dependencies:
   - fltk
   - libtiff
-  - autoconf
-  - automake
+  - proj
