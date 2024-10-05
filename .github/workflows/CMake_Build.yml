@@ -22,6 +22,9 @@ jobs:
           - os: windows-latest
             os-type: windows
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash # Set the default shell for the entire job
 
     steps:
     - uses: actions/checkout@v4
