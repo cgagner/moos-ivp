@@ -1,0 +1,63 @@
+name: CMake Build
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        # https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+        include:
+          # - os: ubuntu-24.04
+          #   os-type: debian
+          # # Mac OS X - 13 runs on intel
+          # - os: macos-13
+          #   os-type: darwin
+          - os: windows-latest
+            os-type: windows
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash # Set the default shell for the entire job
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies - Debian/Ubuntu
+      if: matrix.os-type == 'debian'
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y cmake build-essential git libtiff5-dev libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxinerama-dev libxft-dev
+
+    - name: Install Dependencies - Mac OS X
+      if: matrix.os-type == 'darwin'
+      run: |
+         brew install fltk libtiff autoconf automake
+      shell: bash
+
+    - name: Install Dependencies - Windows
+      uses: conda-incubator/setup-miniconda@v3
+      if: matrix.os-type == 'windows'
+      with:
+        activate-environment: anaconda-moos-env
+        environment-file: .github/conda/moos-env.yml
+        python-version: 3.5
+        condarc-file: .github/conda/condarc.yml
+        auto-activate-base: false
+    
+    - name: Verify Dependencies - Windows
+      if: matrix.os-type == 'windows'
+      run: |
+          conda info
+          conda list
+    
+    - name: Build
+      run: ./build.sh
+
+    - name: Check build
+      run: ./build-check.sh
